@@ -1,0 +1,7 @@
+DROP DATABASE IF EXISTS order_db;
+DROP USER IF EXISTS `admin`@`%`;
+DROP USER IF EXISTS `admin`@`%`;
+CREATE DATABASE IF NOT EXISTS order_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS `admin`@`%` IDENTIFIED WITH mysql_native_password BY 'admin';
+GRANT ALL PRIVILEGES ON `order_db`.* TO `admin`@`%`;
+FLUSH PRIVILEGES;
