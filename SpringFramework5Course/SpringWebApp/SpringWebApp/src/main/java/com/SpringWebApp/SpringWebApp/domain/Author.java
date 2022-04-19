@@ -1,2 +1,4 @@
-package com.SpringWebApp.SpringWebApp.domain;public class Author {
+package com.SpringWebApp.SpringWebApp.domain;
+
+public class Author {
 }
