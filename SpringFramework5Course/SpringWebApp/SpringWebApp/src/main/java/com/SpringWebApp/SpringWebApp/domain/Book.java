@@ -1,9 +1,7 @@
 package com.SpringWebApp.SpringWebApp.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -12,34 +10,39 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-public class Author {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    private String title;
+    private String isbn;
 
-    @ManyToMany(mappedBy = "authorsSet")
-    private Set<Book> booksSet = new HashSet<>();
+    @ManyToOne
+    private Publisher publisher;
 
-    public Author(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    @ManyToMany
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authorsSet = new HashSet<>();
+
+
+    public Book(String title, String isbn) {
+        this.title = title;
+        this.isbn = isbn;
     }
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Book{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
                 '}';
     }
 
@@ -48,9 +51,9 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Author author = (Author) o;
+        Book book = (Book) o;
 
-        return id != null ? id.equals(author.id) : author.id == null;
+        return id != null ? id.equals(book.id) : book.id == null;
     }
 
     @Override
